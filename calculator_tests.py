@@ -1,5 +1,4 @@
-from calculator import multiply
+from calculator import addition
 
-# Test used for setting up repository (this will be deleted later).
-def test_multiply():
-    assert multiply(10, 11) == 110
+def test_addition():
+    assert addition("10", "10") == float(20)

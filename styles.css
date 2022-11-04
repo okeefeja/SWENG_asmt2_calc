@@ -1,0 +1,101 @@
+body {
+    background-color: powderblue;
+    text-align: center;
+    background-image: url('backgroundimage.jpg');}
+
+#calculator {
+    width: 400px;
+    height: 750px;
+    display: flex;
+    background-color: #67748c;
+    flex-direction: column;
+    margin: 90px auto;
+    border-radius: 20px;
+    color: white;
+    padding-top: 10px;
+    overflow: hidden;}
+
+h1 {
+    color:powderblue;
+    font-family: Arial, Helvetica, sans-serif;}
+
+h2 {
+    color:powderblue;
+    font-family: Arial, Helvetica, sans-serif;}
+
+#calc-wrapper {
+    width: 100%;
+    text-align: right;
+    padding-right: 40px;
+    margin-top: 60px;
+    margin-bottom: 30px;}
+
+#theCalculator {
+    width: 100%;
+    text-align: right;
+    padding-right: 40px;
+    margin-top: 60px;
+    margin-bottom: 30px;}
+
+#theCalculator span {
+    font-size: 1.8em;
+    font-weight: normal;}
+
+#theCalculator h4 {
+    font-size: 3.5em;
+    font-weight: bold;}
+
+#theButtons {
+    background-color: #292D36;
+    height: 100%;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 18px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 15px;}
+
+#firstRow, #secondRow, #thirdRow, #fourthRow, #fifthRow {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;}
+
+#firstRow div, #secondRow div, #thirdRow div, #fourthRow div, #fifthRow div  {
+    border-radius: 20px;
+    justify-content: center;
+    background-color: #3a575b;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;}
+
+#bottom-line {
+    width: 160px;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #474B52;
+    margin: 20px auto;}
+
+#firstRow div {
+    color: #25FCD5;}
+
+#firstRow div:last-of-type, #secondRow div:last-of-type, 
+#thirdRow div:last-of-type, #fourthRow div:last-of-type, #fifthRow div:last-of-type {
+    color: #F47A7B;}
+
+#display-text {
+    height: 50px;}
+
+#answer {
+    height: 70px;}
+
+#display-text span {
+    color: #F47A7B !important;
+    padding: 0px 10px;
+    font-size: 18px;}
