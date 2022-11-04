@@ -10,7 +10,6 @@ numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 sign = ["enter", "AC"]
 
 def numbers_clicked(args):
-    Element("answer").element.innerText = ""
     input = args.target.innerText
     Element("display-text").element.innerHTML += input
     calculator.argument += input
@@ -21,7 +20,6 @@ def sign_clicked(args):
     elif args.target.id == "AC":
         clear_all()
     elif args.target.id not in sign:
-        Element("answer").element.innerText = ""
         operator = args.target.innerText
         Element("display-text").element.innerHTML += "<span>" + operator + "</span>"
         calculator.argument += operator
@@ -29,8 +27,10 @@ def sign_clicked(args):
         
 def calculate():
     console.log(calculator.argument)
-    answer = evaluate(calculator.argument)
-    Element("answer").element.innerText = answer
+    result = evaluate(calculator.argument)
+    calculator.argument = ""
+    Element("display-text").element.innerHTML = ""
+    Element("answer").element.innerText = result
 
         
 def clear_all():
