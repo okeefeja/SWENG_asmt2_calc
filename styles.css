@@ -42,7 +42,60 @@ h2 {
 
 #theCalculator h4 {
     font-size: 3.5em;
-    font-weight: bold;}
+    font-weight: bold
+}
+
+    .loader-area {
+        position:fixed;
+        top: 0;
+        left: 0;
+        right:0;
+        bottom:0;
+        z-index: 1000;
+        background-color: black;
+    }
+    .loader {
+        text-align: center ;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -100px 0 0 -100px;
+        font-size: 20px;
+        perspective: 200px;
+        color: #FFF;
+    }
+    .loader_animation, .loader_animation2 {
+        position:absolute;
+        width: 200px;
+        height:200px;
+        border-radius: 50%;
+        border: 5px solid;
+        border-left-color:#10ac84;
+        border-top-color:#ff9f43;
+        border-right-color:#0984e3;
+        border-bottom-color:#d63031;
+        position:absolute;
+        left: 50%;
+        top:50%;
+        margin: -100px 0 0 -100px;
+        animation: loadAnimation 7s;
+    }
+
+    .loader_animation2 {
+        animation: loadAnimation2 7s;
+    }
+
+    @keyframes loadAnimation {
+        0%{transform: rotate3d(1,1,1,0deg);}
+        100%{transform: rotate3d(1,1,1,360deg);}
+    }
+    @keyframes loadAnimation2 {
+        0%{transform: rotate3d(1,1,1,0deg);}
+        100%{transform: rotate3d(1,1,1,-360deg);}
+    }
 
 #theButtons {
     background-color: #292D36;
@@ -61,7 +114,20 @@ h2 {
     flex-direction: row;
     margin-top: 10px;}
 
-#firstRow div, #secondRow div, #thirdRow div, #fourthRow div, #fifthRow div  {
+#firstRow div {
+    border-radius: 20px;
+    justify-content: center;
+    background-color: #3b7d86;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+}
+#secondRow div, #thirdRow div, #fourthRow div, #fifthRow div  {
     border-radius: 20px;
     justify-content: center;
     background-color: #3a575b;
@@ -72,7 +138,8 @@ h2 {
     height: 60px;
     margin-right: 25px;
     display: flex;
-    align-items: center;}
+    align-items: center;
+}
 
 #bottom-line {
     width: 160px;
@@ -86,7 +153,18 @@ h2 {
 
 #firstRow div:last-of-type, #secondRow div:last-of-type, 
 #thirdRow div:last-of-type, #fourthRow div:last-of-type, #fifthRow div:last-of-type {
-    color: #F47A7B;}
+    color: #F47A7B;
+    border-radius: 20px;
+    justify-content: center;
+    background-color: #3b7d86;
+    font-size: 2em;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+}
 
 #display-text {
     height: 50px;}
