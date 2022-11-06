@@ -21,8 +21,22 @@ def sign_clicked(args):
         clear_all()
     elif args.target.id not in sign:
         operator = args.target.innerText
-        Element("display-text").element.innerHTML += "<span>" + operator + "</span>"
-        calculator.argument += operator
+        if args.target.id == "logs":
+            Element("display-text").element.innerHTML += "<span>" + "log(" + "<span>"
+        else:
+            Element("display-text").element.innerHTML += "<span>" + operator + "</span>"
+        if args.target.id == "logs":
+            calculator.argument += "log("
+        elif args.target.id == "divide":
+            calculator.argument += "/"
+        elif args.target.id == "multiply":
+            calculator.argument += "*"
+        elif args.target.id == "minus":
+            calculator.argument += "-"
+        elif args.target.id == "plus":
+            calculator.argument += "+"
+        else:
+            calculator.argument += operator
             
         
 def calculate():
@@ -40,9 +54,52 @@ def clear_all():
 
 #----------------------------------------------------------------
 
-def evaluate(argument):
-    return addition(argument[0], argument[2])
+def evaluate(inputString):
+    values = []
+    operators = []
+    i = 0
+    while i < len(inputString):
+        if inputString[i] == '(':
+            operators.append(inputString[i])
+        elif inputString[i].isdigit():
+            val = 0
+            while (i < len(inputString) and inputString[i].isdigit()):
+                val = (val * 10) + int(inputString[i])
+                i += 1
+            values.append(val)
+            i -= 1
+        elif inputString[i] == ')':
+            while len(operators) != 0 and operators[-1] != '(':
+                value2 = values.pop()
+                value1 = values.pop()
+                operator = operators.pop()
+                values.append(applyOp(value1, value2, operator))
+            operators.pop()
+        else:
+            while (len(operators) != 0 and precedence(operators[-1]) >= precedence(inputString[i])):       
+                value2 = values.pop()
+                value1 = values.pop()
+                operator = operators.pop()
+                values.append(applyOp(value1, value2, operator))
+            operators.append(inputString[i])
+        i += 1
+    while len(operators) != 0:
+        value2 = values.pop()
+        value1 = values.pop()
+        operator = operators.pop()      
+        values.append(applyOp(value1, value2, operator))
+    return values[-1]
 
-def addition(first, second):
-    return float(first) + float(second)
+def precedence(operator):
+    if operator == '+' or operator == '-'   : return 1
+    if operator == '*' or operator == '/'   : return 2
+    if operator == '^'                      : return 3
+    return 0
+
+def applyOp(a, b, operator):
+    if operator == '+': return a + b
+    if operator == '-': return a - b
+    if operator == '*': return a * b
+    if operator == '/': return a / b
+    if operator == '^': return pow(a, b)
 
