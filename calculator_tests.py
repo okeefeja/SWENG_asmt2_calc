@@ -1,5 +1,5 @@
 from decimal import DivisionByZero
-from calc import evaluate
+from calculator import evaluate
 
 def test_evaluate():
     # Tests for single operators with integers
