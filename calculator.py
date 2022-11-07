@@ -1,4 +1,5 @@
 from js import console, document
+import math
 
 class Calculator:
     def __init__(self, argument):
@@ -59,14 +60,17 @@ def evaluate(inputString):
     operators = []
     i = 0
     while i < len(inputString):
-        if inputString[i] == '(':
+        if(inputString[i] == 'l'):
+            i, log = calculateLog(i, inputString)
+            values.append(log)
+        elif inputString[i] == '(':
             operators.append(inputString[i])
         elif inputString[i].isdigit():
-            val = 0
-            while (i < len(inputString) and inputString[i].isdigit()):
-                val = (val * 10) + int(inputString[i])
+            numberString = ""
+            while (i < len(inputString) and (inputString[i].isdigit() or inputString[i] == '.')):
+                numberString += inputString[i]
                 i += 1
-            values.append(val)
+            values.append(float(numberString))
             i -= 1
         elif inputString[i] == ')':
             while len(operators) != 0 and operators[-1] != '(':
@@ -88,7 +92,18 @@ def evaluate(inputString):
         value1 = values.pop()
         operator = operators.pop()      
         values.append(applyOp(value1, value2, operator))
-    return values[-1]
+    return round(values[-1], 3)
+
+def calculateLog(i, inputString):
+    i += 4
+    closeLocation = i
+    while(inputString[closeLocation] != ')'):
+        closeLocation += 1
+    expression = inputString[i:closeLocation]
+    number = evaluate(expression)
+    result = math.log10(number)
+    i = closeLocation + 1
+    return i, result
 
 def precedence(operator):
     if operator == '+' or operator == '-'   : return 1
