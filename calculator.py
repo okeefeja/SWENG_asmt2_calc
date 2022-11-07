@@ -63,10 +63,16 @@ def evaluate(inputString):
         if(inputString[i] == 'l'):
             i, log = calculateLog(i, inputString)
             values.append(log)
+        elif(inputString[i] == 'e'):
+            i, exp = calculateExp(i, inputString)
+            values.append(exp)
         elif inputString[i] == '(':
             operators.append(inputString[i])
-        elif inputString[i].isdigit():
+        elif ((inputString[i] == '-' and inputString[i + 1].isdigit()) or inputString[i].isdigit()):
             numberString = ""
+            if(inputString[i] == '-'):
+                numberString += '-'
+                i += 1
             while (i < len(inputString) and (inputString[i].isdigit() or inputString[i] == '.')):
                 numberString += inputString[i]
                 i += 1
@@ -102,6 +108,17 @@ def calculateLog(i, inputString):
     expression = inputString[i:closeLocation]
     number = evaluate(expression)
     result = math.log10(number)
+    i = closeLocation
+    return i, result
+
+def calculateExp(i, inputString):
+    i += 4
+    closeLocation = i
+    while(inputString[closeLocation] != ')'):
+        closeLocation += 1
+    expression = inputString[i:closeLocation]
+    number = evaluate(expression)
+    result = math.exp(number)
     i = closeLocation + 1
     return i, result
 
@@ -112,9 +129,9 @@ def precedence(operator):
     return 0
 
 def applyOp(a, b, operator):
-    if operator == '+': return a + b
-    if operator == '-': return a - b
-    if operator == '*': return a * b
-    if operator == '/': return a / b
-    if operator == '^': return pow(a, b)
+    if operator == '+': return float(a) + float(b)
+    if operator == '-': return float(a) - float(b)
+    if operator == '*': return float(a) * float(b)
+    if operator == '/': return float(a) / float(b)
+    if operator == '^': return pow(float(a), float(b))
 
