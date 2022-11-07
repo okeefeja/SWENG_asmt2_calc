@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>SWENG Calculator</title>
 </head>
 
@@ -58,8 +59,50 @@
                 <div id="bracket2" class="number-button" pys-onClick="sign_clicked">)</div>
                 <div id="enter" class="operator-button" pys-onClick="sign_clicked">&#61</div>
             </div>
+            <div id="lastRow">
+                <div id="dot" class="number-button" pys-onClick="numbers_clicked">.</div>
+            </div>
             <div id="bottom-line"></div>
          </div>
     </main>
+    <div class="loader-area"> 
+        <span class="loader">Loading Calculator..</span>
+        <span class="loader_animation"></span>
+        <span class="loader_animation2"></span>
+    </div>
+    <script> 
+        $(document).ready(function () {
+            setTimeout(RemoveClass, 3500);
+            
+    
+            function RemoveClass() {
+                $('.loader-area').removeClass("loader-area");
+            }
+        });
+        $(document).ready(function () {
+            setTimeout(RemoveClass, 3500);
+            
+    
+            function RemoveClass() {
+                $('.loader').removeClass("loader");
+            }
+        });
+        $(document).ready(function () {
+            setTimeout(RemoveClass, 3500);
+            
+    
+            function RemoveClass() {
+                $('.loader_animation').removeClass("loader_animation");
+            }
+        });
+        $(document).ready(function () {
+            setTimeout(RemoveClass, 3500);
+            
+    
+            function RemoveClass() {
+                $('.loader_animation2').removeClass("loader_animation2");
+            }
+        });
+    </script>
 </body>
 </html>
