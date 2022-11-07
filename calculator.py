@@ -23,11 +23,15 @@ def sign_clicked(args):
     elif args.target.id not in sign:
         operator = args.target.innerText
         if args.target.id == "logs":
-            Element("display-text").element.innerHTML += "<span>" + "log(" + "<span>"
+            Element("display-text").element.innerHTML += "<span>" + "log("
+        elif args.target.id == "exponent":
+            Element("display-text").element.innerHTML += "<span>" + "exp("
         else:
             Element("display-text").element.innerHTML += "<span>" + operator + "</span>"
         if args.target.id == "logs":
             calculator.argument += "log("
+        elif args.target.id == "exponent":
+            calculator.argument += "exp("
         elif args.target.id == "divide":
             calculator.argument += "/"
         elif args.target.id == "multiply":
@@ -52,8 +56,6 @@ def clear_all():
     calculator.argument = ""
     Element("display-text").element.innerHTML = ""
     Element("answer").element.innerText = ""
-
-#----------------------------------------------------------------
 
 def evaluate(inputString):
     values = []
