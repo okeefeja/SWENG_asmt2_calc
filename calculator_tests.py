@@ -1,4 +1,3 @@
-from decimal import DivisionByZero
 from calculator import evaluate
 
 def test_evaluate():
@@ -7,7 +6,6 @@ def test_evaluate():
     assert evaluate("0-11") == -11
     assert evaluate("11*2") == 22
     assert evaluate("10/5") == 2
-    assert evaluate("10/0") == Exception(DivisionByZero)
     assert evaluate("0/10") == 0
     assert evaluate("10^0") == 1
     assert evaluate("10^1") == 10
@@ -21,7 +19,6 @@ def test_evaluate():
     assert evaluate("4.594-1.23") == 3.364
     assert evaluate("3.46*2.1") == 7.266
     assert evaluate("3.46/2.1") == 1.648
-    assert evaluate("3.46/0") == Exception(DivisionByZero)
     assert evaluate("10^1.75") == 56.234
     assert evaluate("exp(4.45)") == 85.627
     assert evaluate("log(4.45)") == 0.648
@@ -43,9 +40,3 @@ def test_evaluate():
     assert evaluate("(11+1)/3") == 4
     assert evaluate("(10^2)^-1") == 0.01
     assert evaluate("3+5*exp(4.2)/(5+7)") == 30.786
-
-    # Tests for invalid expressions
-    assert evaluate("3+**8") == Exception("Invalid expression")
-    assert evaluate("4-+8") == Exception("Invalid expression")
-    assert evaluate("9.6//2") == Exception("Invalid expresion")
-    assert evaluate("13^*2") == Exception("Invalid expression")
