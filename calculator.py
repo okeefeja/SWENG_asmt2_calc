@@ -1,4 +1,5 @@
 from js import console, document
+import math
 
 class Calculator:
     def __init__(self, argument):
@@ -22,11 +23,15 @@ def sign_clicked(args):
     elif args.target.id not in sign:
         operator = args.target.innerText
         if args.target.id == "logs":
-            Element("display-text").element.innerHTML += "<span>" + "log(" + "<span>"
+            Element("display-text").element.innerHTML += "<span>" + "log("
+        elif args.target.id == "exponent":
+            Element("display-text").element.innerHTML += "<span>" + "exp("
         else:
             Element("display-text").element.innerHTML += "<span>" + operator + "</span>"
         if args.target.id == "logs":
             calculator.argument += "log("
+        elif args.target.id == "exponent":
+            calculator.argument += "exp("
         elif args.target.id == "divide":
             calculator.argument += "/"
         elif args.target.id == "multiply":
@@ -52,21 +57,28 @@ def clear_all():
     Element("display-text").element.innerHTML = ""
     Element("answer").element.innerText = ""
 
-#----------------------------------------------------------------
-
 def evaluate(inputString):
     values = []
     operators = []
     i = 0
     while i < len(inputString):
-        if inputString[i] == '(':
+        if(inputString[i] == 'l'):
+            i, log = calculateLogExp("log", i, inputString)
+            values.append(log)
+        elif(inputString[i] == 'e'):
+            i, exp = calculateLogExp("exp", i, inputString)
+            values.append(exp)
+        elif inputString[i] == '(':
             operators.append(inputString[i])
-        elif inputString[i].isdigit():
-            val = 0
-            while (i < len(inputString) and inputString[i].isdigit()):
-                val = (val * 10) + int(inputString[i])
+        elif ((inputString[i] == '-' and inputString[i + 1].isdigit()) or inputString[i].isdigit()):
+            numberString = ""
+            if(inputString[i] == '-'):
+                numberString += '-'
                 i += 1
-            values.append(val)
+            while (i < len(inputString) and (inputString[i].isdigit() or inputString[i] == '.')):
+                numberString += inputString[i]
+                i += 1
+            values.append(float(numberString))
             i -= 1
         elif inputString[i] == ')':
             while len(operators) != 0 and operators[-1] != '(':
@@ -88,7 +100,27 @@ def evaluate(inputString):
         value1 = values.pop()
         operator = operators.pop()      
         values.append(applyOp(value1, value2, operator))
-    return values[-1]
+    return round(values[-1], 3)
+
+def calculateLogExp(calculation, i, inputString):
+    i += 4
+    closeLocation = i
+    openBrackets = 0
+    while(inputString[closeLocation] != ')' or openBrackets != 0):
+        if(inputString[closeLocation] == '('):
+            openBrackets += 1
+        if(inputString[closeLocation] == ')'):
+            openBrackets -= 1
+        closeLocation += 1
+    expression = inputString[i:closeLocation]
+    number = evaluate(expression)
+    result = 0
+    if(calculation == "log"):
+        result = math.log10(number)
+    else:
+        result = math.exp(number)
+    i = closeLocation
+    return i, result
 
 def precedence(operator):
     if operator == '+' or operator == '-'   : return 1
@@ -97,9 +129,8 @@ def precedence(operator):
     return 0
 
 def applyOp(a, b, operator):
-    if operator == '+': return a + b
-    if operator == '-': return a - b
-    if operator == '*': return a * b
-    if operator == '/': return a / b
-    if operator == '^': return pow(a, b)
-
+    if operator == '+': return float(a) + float(b)
+    if operator == '-': return float(a) - float(b)
+    if operator == '*': return float(a) * float(b)
+    if operator == '/': return float(a) / float(b)
+    if operator == '^': return pow(float(a), float(b))
