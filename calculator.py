@@ -61,25 +61,15 @@ def evaluate(inputString):
     values = []
     operators = []
     i = 0
-    lastWasNumber = False
-    lastWasBracket = False
     while i < len(inputString):
         if(inputString[i] == 'l'):
             i, log = calculateLogExp("log", i, inputString)
             values.append(log)
-            lastWasNumber = True
-            lastWasBracket = False
         elif(inputString[i] == 'e'):
             i, exp = calculateLogExp("exp", i, inputString)
             values.append(exp)
-            lastWasNumber = True
-            lastWasBracket = False
         elif inputString[i] == '(':
-            if lastWasNumber == True:
-                operators.append('*')
             operators.append(inputString[i])
-            lastWasNumber = False
-            lastWasBracket = False
         elif ((inputString[i] == '-' and inputString[i + 1].isdigit()) or inputString[i].isdigit()):
             numberString = ""
             if(inputString[i] == '-'):
@@ -89,14 +79,8 @@ def evaluate(inputString):
                 numberString += inputString[i]
                 i += 1
             values.append(float(numberString))
-            if(lastWasBracket == True):
-                operators.append('*')
-            lastWasNumber = True
-            lastWasBracket = False
             i -= 1
         elif inputString[i] == ')':
-            lastWasNumber = False
-            lastWasBracket = True
             while len(operators) != 0 and operators[-1] != '(':
                 value2 = values.pop()
                 value1 = values.pop()
