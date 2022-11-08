@@ -63,10 +63,10 @@ def evaluate(inputString):
     i = 0
     while i < len(inputString):
         if(inputString[i] == 'l'):
-            i, log = calculateLog(i, inputString)
+            i, log = calculateLogExp("log", i, inputString)
             values.append(log)
         elif(inputString[i] == 'e'):
-            i, exp = calculateExp(i, inputString)
+            i, exp = calculateLogExp("exp", i, inputString)
             values.append(exp)
         elif inputString[i] == '(':
             operators.append(inputString[i])
@@ -102,26 +102,24 @@ def evaluate(inputString):
         values.append(applyOp(value1, value2, operator))
     return round(values[-1], 3)
 
-def calculateLog(i, inputString):
+def calculateLogExp(calculation, i, inputString):
     i += 4
     closeLocation = i
-    while(inputString[closeLocation] != ')'):
+    openBrackets = 0
+    while(inputString[closeLocation] != ')' or openBrackets != 0):
+        if(inputString[closeLocation] == '('):
+            openBrackets += 1
+        if(inputString[closeLocation] == ')'):
+            openBrackets -= 1
         closeLocation += 1
     expression = inputString[i:closeLocation]
     number = evaluate(expression)
-    result = math.log10(number)
+    result = 0
+    if(calculation == "log"):
+        result = math.log10(number)
+    else:
+        result = math.exp(number)
     i = closeLocation
-    return i, result
-
-def calculateExp(i, inputString):
-    i += 4
-    closeLocation = i
-    while(inputString[closeLocation] != ')'):
-        closeLocation += 1
-    expression = inputString[i:closeLocation]
-    number = evaluate(expression)
-    result = math.exp(number)
-    i = closeLocation + 1
     return i, result
 
 def precedence(operator):
