@@ -1,4 +1,3 @@
-from decimal import DivisionByZero
 from calculator import evaluate
 
 def test_evaluate():
