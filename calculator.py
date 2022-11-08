@@ -150,4 +150,3 @@ def applyOp(a, b, operator):
     if operator == '*': return float(a) * float(b)
     if operator == '/': return float(a) / float(b)
     if operator == '^': return pow(float(a), float(b))
-
